@@ -102,80 +102,100 @@ const TechnicalTicketList = () => {
   const visibleTickets = filteredTickets.slice(0, entriesToShow);
 
   return (
-    <div className="p-4 max-w-6xl mx-auto mt-20 border rounded-lg shadow-md bg-white">
-      <h2 className="text-xl font-semibold mb-4">Technical Support Tickets</h2>
+    <div className="p-4 sm:p-6 max-w-7xl mx-auto mt-20 border rounded-lg shadow-md bg-white overflow-x-auto">
+      <h2 className="text-xl font-semibold mb-4 text-center sm:text-left">Technical Support Tickets</h2>
 
-      <table className="min-w-full border border-gray-300 text-sm">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="border px-3 py-2">Ticket No.</th>
-            <th className="border px-3 py-2">Subject</th>
-            <th className="border px-3 py-2">Category</th>
-            <th className="border px-3 py-2">Priority</th>
-            <th className="border px-3 py-2">Date</th>
-            <th className="border px-3 py-2">Status</th>
-            <th className="border px-3 py-2">Person</th>
-            <th className="border px-3 py-2">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {visibleTickets.map(ticket => (
-            <tr key={ticket._id} className="text-center">
-              <td
-                className="border px-3 py-2 text-blue-600 underline cursor-pointer"
-                onClick={() => {
-                  setSelectedTicket(ticket);
-                  setStatusUpdate(ticket.status);
-                }}
-              >
-                {ticket.ticketNo}
-              </td>
-              <td className="border px-3 py-2">{ticket.subject}</td>
-              <td className="border px-3 py-2">{ticket.category}</td>
-              <td className="border px-3 py-2">{ticket.priority}</td>
-              <td className="border px-3 py-2">{ticket.date?.substring(0, 10)}</td>
-              <td className="border px-3 py-2">
-                <span className={`px-2 py-1 rounded ${getStatusStyle(ticket.status)}`}>
-                  {ticket.status || 'Pending'}
-                </span>
-              </td>
-              <td className="border px-3 py-2">
-                {editingId === ticket._id ? (
-                  <input
-                    type="text"
-                    value={personInput}
-                    onChange={(e) => setPersonInput(e.target.value)}
-                    className="border rounded px-2 py-1"
-                  />
-                ) : (
-                  ticket.assignedTo || '—'
-                )}
-              </td>
-              <td className="border px-3 py-2">
-                {editingId === ticket._id ? (
-                  <button
-                    onClick={() => handleSaveClick(ticket._id)}
-                    className="text-green-600 font-bold"
-                  >
-                    💾 Save
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => handleEditClick(ticket)}
-                    className="text-blue-600 font-bold"
-                  >
-                    ✏️ Edit
-                  </button>
-                )}
-              </td>
-            </tr>
+      <div className="flex flex-col sm:flex-row justify-between gap-4 mb-4">
+        <input
+          type="text"
+          placeholder="Search Ticket No..."
+          className="border px-3 py-2 rounded w-full sm:w-64"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <select
+          value={entriesToShow}
+          onChange={(e) => setEntriesToShow(Number(e.target.value))}
+          className="border px-2 py-2 rounded w-full sm:w-auto"
+        >
+          {[5, 10, 20].map((n) => (
+            <option key={n} value={n}>{n} entries</option>
           ))}
-        </tbody>
-      </table>
+        </select>
+      </div>
 
-      {/* Ticket Detail Modal */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full border border-gray-300 text-sm">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="border px-3 py-2">Ticket No.</th>
+              <th className="border px-3 py-2">Subject</th>
+              <th className="border px-3 py-2">Category</th>
+              <th className="border px-3 py-2">Priority</th>
+              <th className="border px-3 py-2">Date</th>
+              <th className="border px-3 py-2">Status</th>
+              <th className="border px-3 py-2">Person</th>
+              <th className="border px-3 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {visibleTickets.map(ticket => (
+              <tr key={ticket._id} className="text-center">
+                <td
+                  className="border px-3 py-2 text-blue-600 underline cursor-pointer"
+                  onClick={() => {
+                    setSelectedTicket(ticket);
+                    setStatusUpdate(ticket.status);
+                  }}
+                >
+                  {ticket.ticketNo}
+                </td>
+                <td className="border px-3 py-2">{ticket.subject}</td>
+                <td className="border px-3 py-2">{ticket.category}</td>
+                <td className="border px-3 py-2">{ticket.priority}</td>
+                <td className="border px-3 py-2">{ticket.date?.substring(0, 10)}</td>
+                <td className="border px-3 py-2">
+                  <span className={`px-2 py-1 rounded ${getStatusStyle(ticket.status)}`}>
+                    {ticket.status || 'Pending'}
+                  </span>
+                </td>
+                <td className="border px-3 py-2">
+                  {editingId === ticket._id ? (
+                    <input
+                      type="text"
+                      value={personInput}
+                      onChange={(e) => setPersonInput(e.target.value)}
+                      className="border rounded px-2 py-1"
+                    />
+                  ) : (
+                    ticket.assignedTo || '—'
+                  )}
+                </td>
+                <td className="border px-3 py-2">
+                  {editingId === ticket._id ? (
+                    <button
+                      onClick={() => handleSaveClick(ticket._id)}
+                      className="text-green-600 font-bold"
+                    >
+                      💾 Save
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleEditClick(ticket)}
+                      className="text-blue-600 font-bold"
+                    >
+                      ✏️ Edit
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       {selectedTicket && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 px-4">
           <div className="bg-white p-6 rounded shadow-lg w-full max-w-md">
             <h3 className="text-xl font-semibold mb-4 text-center">Ticket Details</h3>
             <div className="space-y-2 text-sm">
@@ -200,7 +220,7 @@ const TechnicalTicketList = () => {
               </div>
             </div>
 
-            <div className="mt-6 flex justify-between">
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-between">
               <button
                 onClick={handleStatusUpdate}
                 className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
