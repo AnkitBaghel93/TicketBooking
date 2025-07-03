@@ -28,7 +28,7 @@ const SignUp = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/signup', formData);
+      const response = await axios.post('https://ticketbooking-backend-uq35.onrender.com/api/auth/signup', formData);
       console.log('Signup success:', response.data);
       localStorage.setItem('token', response.data.token);
       navigate('/signin');
