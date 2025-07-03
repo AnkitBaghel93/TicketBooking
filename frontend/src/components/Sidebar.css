@@ -1,0 +1,22 @@
+.sidebar {
+  width: 200px;
+  height: 100vh;
+  background: #16a085;
+  padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  color: white;
+}
+.sidebar-link {
+  display: block;
+  color: white;
+  margin: 1rem 0;
+  text-decoration: none;
+}
+.sidebar-link.active {
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem;
+  border-radius: 4px;
+}
