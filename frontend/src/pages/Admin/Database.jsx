@@ -9,7 +9,7 @@ const Database = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/users');
+        const res = await fetch('https://ticketbooking-backend-uq35.onrender.com/api/users');
         if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
         const data = await res.json();
         setUsers(data);
