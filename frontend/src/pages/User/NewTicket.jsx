@@ -28,7 +28,7 @@ const NewTicket = () => {
   e.preventDefault();
   try {
     const token = localStorage.getItem('token');
-    const res = await fetch('http://localhost:5000/api/tickets/new', {
+    const res = await fetch('https://ticketbooking-backend-uq35.onrender.com/api/tickets/new', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
