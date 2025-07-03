@@ -22,7 +22,7 @@ const TechnicalTicketList = () => {
     const fetchTickets = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:5000/api/tickets/technical', {
+        const res = await fetch('https://ticketbooking-backend-uq35.onrender.com/api/tickets/technical', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -43,7 +43,7 @@ const TechnicalTicketList = () => {
   const handleSaveClick = async (ticketId) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/tickets/${ticketId}/assign`, {
+      const res = await fetch(`https://ticketbooking-backend-uq35.onrender.com/api/tickets/${ticketId}/assign`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -74,7 +74,7 @@ const TechnicalTicketList = () => {
     if (!selectedTicket) return;
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/api/tickets/${selectedTicket._id}/status`, {
+      const res = await fetch(`https://ticketbooking-backend-uq35.onrender.com/api/tickets/${selectedTicket._id}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
