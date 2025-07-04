@@ -23,9 +23,9 @@ const ProfileSetting = () => {
   };
 
   return (
-    <div className="min-h-screen bg-teal-200  px-4 py-8">
+    <div className="min-h-screen bg-teal-200  px-4 py-8 -m-4">
       {/* Heading */}
-      <h1 className="text-3xl font-bold mb-6">User Profile</h1>
+      <h1 className="text-3xl font-bold mb-8 mx-10 my-2">User Profile</h1>
 <div className='flex flex-col items-center justify-center'>
       <div className="flex flex-col md:flex-row gap-8 w-full max-w-4xl ">
         {/* Profile Card */}
