@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../../context/AuthContext';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +10,8 @@ const SignIn = () => {
   });
 
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { login } = useAuth(); // Correct usage
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,34 +24,44 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true);
 
     try {
-      const res = await axios.post('https://ticketbooking-backend-uq35.onrender.com/api/auth/signin', formData);
+      const res = await axios.post('http://localhost:5000/api/auth/signin', formData);
       const { token, user } = res.data;
-      
+
+      // Save to localStorage (optional if already in context)
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-      
 
-      // console.log("Logged in role:", user.role);
-      // console.log('Token saved:', localStorage.getItem('token'));
-      // console.log('Redirecting to dashboard...');
-
+      // Update global context
+      login(user, token); // This handles setUser
 
       // Navigate based on role
-      if (user.role === 'admin') navigate('/admin/dashboard');
-      else if (user.role === 'operation') navigate('/operation/dashboard');
-      else if (user.role === 'technical') navigate('/technical/dashboard');
-      else navigate('/user/dashboard');
+      switch (user.role) {
+        case 'admin':
+          navigate('/admin/dashboard');
+          break;
+        case 'operation':
+          navigate('/operation/dashboard');
+          break;
+        case 'technical':
+          navigate('/technical/dashboard');
+          break;
+        default:
+          navigate('/user/dashboard');
+      }
 
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'Login failed');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-teal-300">
+    <div className="min-h-screen flex items-center justify-center bg-teal-300 p-4">
       <div className="w-[400px] p-8 bg-cyan-100 border border-blue-500 rounded-md shadow-md">
         <h2 className="text-2xl font-semibold text-center mb-6 italic">Helpdesk System</h2>
 
@@ -75,9 +88,10 @@ const SignIn = () => {
 
           <button
             type="submit"
-            className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded"
+            disabled={loading}
+            className={`w-full ${loading ? 'bg-gray-400' : 'bg-green-500 hover:bg-green-600'} text-white py-2 rounded`}
           >
-            Sign In
+            {loading ? 'Signing in...' : 'Sign In'}
           </button>
         </form>
 
