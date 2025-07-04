@@ -7,14 +7,28 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+
     if (storedUser) {
       setUser(JSON.parse(storedUser));
+    } else if (token) {
+      try {
+        const decoded = JSON.parse(atob(token.split('.')[1])); // JWT decode
+        setUser(decoded);
+        localStorage.setItem('user', JSON.stringify(decoded));
+      } catch (error) {
+        console.error('Invalid token');
+        localStorage.removeItem('token');
+      }
     }
   }, []);
 
-  const login = (userData) => {
+  const login = (userData, token) => {
     setUser(userData);
     localStorage.setItem('user', JSON.stringify(userData));
+    if (token) {
+      localStorage.setItem('token', token);
+    }
   };
 
   const logout = () => {
@@ -24,7 +38,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );
