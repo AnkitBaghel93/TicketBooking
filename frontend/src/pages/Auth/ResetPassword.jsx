@@ -15,7 +15,7 @@ const ResetPassword = () => {
     setError('');
 
     try {
-      const res = await axios.post(`http://localhost:5000/api/auth/reset-password/${token}`, {
+      const res = await axios.post(`https://ticketbooking-backend-uq35.onrender.com/api/auth/reset-password/${token}`, {
         newPassword,
       });
       setMessage(res.data.message);
