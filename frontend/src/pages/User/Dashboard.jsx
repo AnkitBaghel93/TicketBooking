@@ -12,7 +12,7 @@ const Dashboard = () => {
     const fetchTickets = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('https://ticketbooking-backend-uq35.onrender.com/api/tickets/my-tickets', {
+        const res = await fetch('http://localhost:5000/api/tickets/my-tickets', {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -41,7 +41,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="min-h-screen p-6 bg-gray-100" style={{ backgroundColor: 'rgba(85, 214, 194, 0.68)' }}>
+    <div className="min-h-screen p-6 -m-4 bg-gray-100" style={{ backgroundColor: 'rgba(85, 214, 194, 0.68)' }}>
       <h2 className="text-2xl font-semibold text-center mb-6 text-gray-800">Dashboard</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
