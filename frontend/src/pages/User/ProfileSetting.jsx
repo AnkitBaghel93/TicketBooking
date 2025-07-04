@@ -23,7 +23,7 @@ const ProfileSetting = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('https://ticketbooking-backend-uq35.onrender.com/api/feedback', feedback, {
+      await axios.post('http://localhost:5000/api/feedback', feedback, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSubmitted(true);
@@ -34,7 +34,7 @@ const ProfileSetting = () => {
 
   return (
     <div
-      className="p-6 min-h-screen flex justify-center items-start"
+      className="p-8 min-h-screen flex justify-center items-start -m-4"
       style={{ backgroundColor: 'rgba(85, 214, 194, 0.68)' }}
     >
       <div className="flex flex-col md:flex-row gap-6 mt-20">
