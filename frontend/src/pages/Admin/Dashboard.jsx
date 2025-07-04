@@ -31,9 +31,9 @@ useEffect(() => {
       const headers = { Authorization: `Bearer ${token}` };
 
       const [ticketRes, approvalRes, userRes] = await Promise.all([
-        fetch('https://ticketbooking-backend-uq35.onrender.com/api/tickets', { headers }),
-        fetch('https://ticketbooking-backend-uq35.onrender.com/api/tickets/approvals', { headers }),
-        fetch('https://ticketbooking-backend-uq35.onrender.com/api/users', { headers }),
+        fetch('http://localhost:5000/api/tickets', { headers }),
+        fetch('http://localhost:5000/api/tickets/approvals', { headers }),
+        fetch('http://localhost:5000/api/users', { headers }),
       ]);
 
       const tickets = await ticketRes.json();
