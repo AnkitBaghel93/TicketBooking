@@ -9,7 +9,7 @@ useEffect(() => {
   const fetchTickets = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('https://ticketbooking-backend-uq35.onrender.com/api/tickets/technical', {
+      const res = await fetch('http://localhost:5000/api/tickets/technical', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -61,8 +61,8 @@ useEffect(() => {
 
 
   return (
-    <div className="p-6 md:p-10 bg-white min-h-screen">
-      <h1 className="text-3xl font-bold mb-6">Performance</h1>
+    <div className="p-6 md:p-10 bg-teal-200 min-h-screen -m-4">
+      <h1 className="text-3xl font-bold mb-6 px-6">Performance</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left: Selected Member */}
