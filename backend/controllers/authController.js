@@ -118,7 +118,7 @@ exports.forgotPassword = async (req, res) => {
       }
     });
 
-    const resetLink = `http://localhost:3000/reset-password/${token}`;
+    const resetLink = `https://ticketbooking-frontend.onrender.com/reset-password/${token}`;
 
     await transporter.sendMail({
       to: user.email,
