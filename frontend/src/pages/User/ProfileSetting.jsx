@@ -23,7 +23,7 @@ const ProfileSetting = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      await axios.post('http://localhost:5000/api/feedback', feedback, {
+      await axios.post('https://ticketbooking-backend-uq35.onrender.com/api/feedback', feedback, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSubmitted(true);
