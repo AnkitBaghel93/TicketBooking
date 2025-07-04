@@ -65,13 +65,13 @@
     display: block;
   }
 
-  .nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 1rem;
-    gap: 0.5rem;
-  }
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto; 
+}
+
 
   .nav-links.open {
     display: flex;
@@ -86,3 +86,9 @@
     margin-top: 0.5rem;
   }
 }
+.nav-item {
+  @apply text-white hover:underline text-sm font-medium;
+}
+
+
+
