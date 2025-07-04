@@ -12,7 +12,7 @@ const Dashboard = () => {
     const fetchTickets = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('http://localhost:5000/api/tickets/my-tickets', {
+        const res = await fetch('https://ticketbooking-backend-uq35.onrender.com/api/tickets/my-tickets', {
           headers: {
             Authorization: `Bearer ${token}`
           }
