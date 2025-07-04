@@ -9,7 +9,7 @@ useEffect(() => {
   const fetchTickets = async () => {
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch('http://localhost:5000/api/tickets/technical', {
+      const res = await fetch('https://ticketbooking-backend-uq35.onrender.com/api/tickets/technical', {
         headers: {
           Authorization: `Bearer ${token}`
         }
