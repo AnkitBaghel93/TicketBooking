@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
-import { FaFacebook } from 'react-icons/fa';
+import { FaFacebook , FaGoogle } from 'react-icons/fa';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
