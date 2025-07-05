@@ -57,4 +57,14 @@ router.get(
   }
 );
 
+router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google/callback',
+  passport.authenticate('google', { failureRedirect: `${FRONTEND_URL}/signin`, session: false }),
+  (req, res) => {
+    const token = generateToken(req.user);
+    res.redirect(`${FRONTEND_URL}/google-success?token=${token}`);
+  }
+);
+
 module.exports = router;
