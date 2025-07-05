@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../context/AuthContext';
+import { FaFacebook } from 'react-icons/fa';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -11,7 +12,7 @@ const SignIn = () => {
 
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth(); // Correct usage
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -27,17 +28,16 @@ const SignIn = () => {
     setLoading(true);
 
     try {
-      const res = await axios.post('https://ticketbooking-backend-uq35.onrender.com/api/auth/signin', formData);
+      const res = await axios.post(
+        'https://ticketbooking-backend-uq35.onrender.com/api/auth/signin',
+        formData
+      );
       const { token, user } = res.data;
 
-      // Save to localStorage (optional if already in context)
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
+      login(user, token);
 
-      // Update global context
-      login(user, token); // This handles setUser
-
-      // Navigate based on role
       switch (user.role) {
         case 'admin':
           navigate('/admin/dashboard');
@@ -51,7 +51,6 @@ const SignIn = () => {
         default:
           navigate('/user/dashboard');
       }
-
     } catch (err) {
       console.error(err);
       setError(err.response?.data?.message || 'Login failed');
@@ -103,6 +102,15 @@ const SignIn = () => {
             Sign Up
           </Link>
         </div>
+
+        {/* Facebook login button */}
+        <a
+          href="https://ticketbooking-backend-uq35.onrender.com/api/auth/facebook"
+          className="w-full flex items-center justify-center gap-2 bg-blue-600 text-white py-2 rounded shadow-md hover:bg-blue-700 hover:shadow-lg transition duration-300 mt-4"
+        >
+          <FaFacebook className="text-lg" />
+          Continue with Facebook
+        </a>
       </div>
     </div>
   );
