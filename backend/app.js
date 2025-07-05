@@ -7,6 +7,7 @@ require('dotenv').config();
 const ticketRoutes = require('./routes/ticketRoutes');
 const userRoutes = require('./routes/userRoutes'); 
 require('./utilise/passport'); // Load passport config
+require('./utilise/googleStrategy');
 const session = require('express-session');
 const passport = require('passport');
 
