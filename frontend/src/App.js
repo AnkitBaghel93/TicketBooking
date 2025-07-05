@@ -17,6 +17,8 @@ import SignUp from './pages/Auth/SignUp';
 import ForgotPassword from './pages/Auth/ForgotPassword';
 import ResetPassword from './pages/Auth/ResetPassword';
 import FacebookSuccess from './pages/Auth/FacebookSuccess';
+import GoogleSuccess from './pages/Auth/GoogleSuccess';
+
 
 
 // User Pages
@@ -72,6 +74,8 @@ const App = () => {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/facebook-success" element={<FacebookSuccess />} />
+            <Route path="/google-success" element={<GoogleSuccess />} />
+
 
         </Route>
 
