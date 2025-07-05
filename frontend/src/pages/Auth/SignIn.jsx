@@ -103,6 +103,14 @@ const SignIn = () => {
           </Link>
         </div>
 
+                <a
+  href="https://ticketbooking-backend-uq35.onrender.com/api/auth/google"
+  className="w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded shadow-md hover:bg-red-600 hover:shadow-lg transition duration-300 mt-4"
+>
+  <FaGoogle className="text-lg" />
+  Continue with Google
+</a>
+
         {/* Facebook login button */}
         <a
           href="https://ticketbooking-backend-uq35.onrender.com/api/auth/facebook"
@@ -112,13 +120,7 @@ const SignIn = () => {
           Continue with Facebook
         </a>
 
-        <a
-  href="https://ticketbooking-backend-uq35.onrender.com/api/auth/google"
-  className="w-full flex items-center justify-center gap-2 bg-red-500 text-white py-2 rounded shadow-md hover:bg-red-600 hover:shadow-lg transition duration-300 mt-4"
->
-  <FaGoogle className="text-lg" />
-  Continue with Google
-</a>
+
         
       </div>
     </div>
