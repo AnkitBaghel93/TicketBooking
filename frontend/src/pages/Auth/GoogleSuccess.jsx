@@ -11,12 +11,15 @@ const GoogleSuccess = () => {
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token);
-      login({}, token);
-      navigate('/user/dashboard');
+      login({}, token); // Replace {} with real user info if needed
+      navigate('/user/dashboard', { replace: true }); 
     }
   }, [token, login, navigate]);
 
-  return <div>Signing in with Google...</div>;
+ if (!token) {
+  return <div className="text-center mt-20">Invalid or missing token.</div>;
+}
+
 };
 
 export default GoogleSuccess;
