@@ -6,6 +6,9 @@ const authRoutes = require('./routes/authRoutes');
 require('dotenv').config();
 const ticketRoutes = require('./routes/ticketRoutes');
 const userRoutes = require('./routes/userRoutes'); 
+require('./utilise/passport'); // Load passport config
+const session = require('express-session');
+const passport = require('passport');
 
 
 // App config
@@ -33,6 +36,9 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //  route 
