@@ -23,13 +23,12 @@ router.post('/logout', logoutUser);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password/:token', resetPassword);
 
-// INITIATE FACEBOOK LOGIN
+// ==================== FACEBOOK LOGIN ==================== //
 router.get('/facebook', (req, res, next) => {
   console.log('[AuthRoutes] Facebook login initiated');
   next();
 }, passport.authenticate('facebook', { scope: ['email'] }));
 
-// FACEBOOK CALLBACK
 router.get(
   '/facebook/callback',
   (req, res, next) => {
@@ -51,19 +50,42 @@ router.get(
     console.log('[AuthRoutes] User:', req.user);
 
     const token = generateToken(req.user);
-    console.log('[AuthRoutes] JWT token generated:', token);
+    const { username, email, role } = req.user;
 
-    res.redirect(`${FRONTEND_URL}/facebook-success?token=${token}`);
+    res.redirect(`${FRONTEND_URL}/facebook-success?token=${token}&username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}&role=${role}`);
   }
 );
 
-router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+// ==================== GOOGLE LOGIN ==================== //
+router.get('/google', (req, res, next) => {
+  console.log('[AuthRoutes] Google login initiated');
+  next();
+}, passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-router.get('/google/callback',
-  passport.authenticate('google', { failureRedirect: `${FRONTEND_URL}/signin`, session: false }),
+router.get(
+  '/google/callback',
+  (req, res, next) => {
+    console.log('[AuthRoutes] Google callback hit');
+    next();
+  },
+  passport.authenticate('google', {
+    failureRedirect: `${FRONTEND_URL}/signin`,
+    session: false,
+  }),
   (req, res) => {
+    console.log('[AuthRoutes] Google login success');
+
+    if (!req.user) {
+      console.log('[AuthRoutes] No user attached to req');
+      return res.redirect(`${FRONTEND_URL}/signin?error=NoUser`);
+    }
+
+    console.log('[AuthRoutes] User:', req.user);
+
     const token = generateToken(req.user);
-    res.redirect(`${FRONTEND_URL}/google-success?token=${token}`);
+    const { username, email, role } = req.user;
+
+    res.redirect(`${FRONTEND_URL}/google-success?token=${token}&username=${encodeURIComponent(username)}&email=${encodeURIComponent(email)}&role=${role}`);
   }
 );
 
